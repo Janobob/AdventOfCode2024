@@ -95,6 +95,7 @@ public sealed class Day05 : BaseDay
                 if (ruleP1 == null || ruleP2 == null)
                     return 0;
 
+                // Check if x must come before y
                 if (ruleP1.Before.Contains(p2))
                     return -1;
 
