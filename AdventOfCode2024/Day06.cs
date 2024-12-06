@@ -4,11 +4,11 @@ namespace AdventOfCode2024;
 
 public sealed class Day06 : BaseDay
 {
+    private readonly string _direction = "^";
     private readonly (int y, int x) _guardPosition = (0, 0);
     private readonly List<List<char>> _map = [];
     private readonly int _xLength;
     private readonly int _yLength;
-    private readonly string _direction = "^";
 
     public Day06()
     {
@@ -134,17 +134,14 @@ public sealed class Day06 : BaseDay
             { "<", (-1, 0, "^") }
         };
 
-        int steps;
-        for (steps = 0; steps < 10000; steps++)
+        while (true)
         {
             var state = (guardPosition.y, guardPosition.x, direction);
 
-            if (visited.Contains(state))
+            if (!visited.Add(state))
             {
                 return true;
             }
-
-            visited.Add(state);
 
             var (dx, dy, nextDirection) = directions[direction];
             var nextX = guardPosition.x + dx;
@@ -164,8 +161,6 @@ public sealed class Day06 : BaseDay
                 guardPosition = (nextY, nextX);
             }
         }
-
-        return steps == 10000;
     }
 
     private static bool IsInBounds(int x, int y, int xLength, int yLength)
